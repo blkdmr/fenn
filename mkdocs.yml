@@ -1,0 +1,7 @@
+site_name: smle
+
+nav:
+  - Home: index.md
+  - Contribute: contribute.md
+
+theme: readthedocs
