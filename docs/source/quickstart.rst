@@ -33,18 +33,6 @@ This will usually create a basic ``main.py`` script and a default ``smle.yaml`` 
     smle init
 
 After running this command, you can immediately open the generated files and adapt them to your model, dataset, and training loop.
-
-
-2. Configuration (``smle.yaml``)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-SMLE relies on a simple YAML structure to define hyperparameters, paths, logging options, and integrations.
-You can generate a blank template using:
-
-.. code-block:: bash
-
-    smle create yaml
-
 You can configure the ``smle.yaml`` file with the hyperparameters and options for your project. The structure of the ``smle.yaml`` file is:
 
 .. code-block:: yaml
@@ -78,7 +66,7 @@ You can configure the ``smle.yaml`` file with the hyperparameters and options fo
     You can add new sections as needed (for example, ``model``, ``optimizer``, ``scheduler``) and access them via the same keys in ``args``. This makes it easy to manage multiple experiments by maintaining different YAML files.
 
 
-3. Write Your Code
+2. Write Your Code
 ^^^^^^^^^^^^^^^^^^
 
 You can work on the ``main.py`` script to create your project. Use the ``@app.entrypoint`` decorator. Your configuration variables are automatically passed via ``args`` as a nested dictionary that mirrors the structure of ``smle.yaml``.

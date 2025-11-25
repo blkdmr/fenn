@@ -9,8 +9,8 @@ A step by step guide on how to integrate `Weights & Biases <https://wandb.ai>`_
     This guide assumes that you have an active W&B account at https://wandb.ai.
 
 
-1. Create a W&B account and obtain your API key
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+1. Obtain your WandB API key
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Before you can log experiments from SMLE to W&B, you must create a W&B account and obtain a personal API key associated with that account.
 This key is used to authenticate all requests from your code to the W&B backend.
