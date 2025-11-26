@@ -3,8 +3,8 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "smle"
-version = "0.0.2.dev2"
+name = "smyle"
+version = "0.0.2"
 description = "Simplify Machine Learning Environments (SMLE) - A simple framework that takes care of the boring stuff in ML projects."
 
 authors = [
