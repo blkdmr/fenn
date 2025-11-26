@@ -19,6 +19,7 @@ class SMLE:
         self._entrypoint_fn = None
         self._parser: Parser | None = None
         self._config_file = config_file
+        self._keystore = KeyStore()
 
     @property
     def config_file(self):
@@ -30,8 +31,6 @@ class SMLE:
         The method to set the YAML file.
         """
         self._config_file = config_file
-
-        self._keystore = KeyStore()
 
         #webhook_url = os.getenv("DISCORD_WEBHOOK_URL")
         #self._notifier = Notifier(webhook_url)
@@ -55,9 +54,9 @@ class SMLE:
 
         self._parser = Parser()
         self._parser.config_file = self._config_file
-        self._args = self._parser.load_configuration()
+        self._args = self._parser.load_configuration(self._keystore)
         self._args["session_id"] = self._session_id
-        self._logger = Logger(self._args)
+        self._logger = Logger(self._args, self._keystore)
         self._logger.start()
 
         self._parser.print()

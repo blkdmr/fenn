@@ -3,7 +3,7 @@ import os
 import sys
 from colorama import Fore, Style, init
 from typing import Any
-
+from smle.secrets.keystore import KeyStore
 
 class Parser:
 
@@ -34,7 +34,7 @@ class Parser:
 
         self._default =  "(default)" if config_file == "smle.yaml" else ""
 
-    def load_configuration(self) -> Any:
+    def load_configuration(self, keystore: KeyStore | None = None) -> Any:
         """Loads the YAML configuration into the _args dictionary."""
         # If no config file is set, use the default
         if not self._config_file:
@@ -42,6 +42,14 @@ class Parser:
             
         with open(self._config_file) as f:
             self._args = yaml.safe_load(f)
+
+        if keystore and self._args.get("wandb", {}).get("key"):
+            keystore.set_key("WANDB_API_KEY", self._args.get("wandb", {}).get("key"))
+            self._args.get("wandb", {}).pop("key")
+            print((
+                f"{Fore.RED}[SMLE] WANDB key in yaml file is deprecated. "
+                f"Please use {Fore.LIGHTYELLOW_EX}.env{Fore.RED} file instead.{Style.RESET_ALL}"
+            ))
 
         return self._args
 

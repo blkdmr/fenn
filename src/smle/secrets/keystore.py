@@ -13,8 +13,15 @@ class KeyStore:
     def __init__(self):
         self._keys = dotenv_values(".env")
 
-    def get_key(self, service:str):
+    def set_key(self, service:str, key:str):
+        self._keys[service] = key
+
+    def get_key(self, service:str) -> str:
+        # Check if the key is already in the environment
+        key = os.getenv(service)
+        if key:
+            return key
         if service in self._keys.keys():
             return self._keys[service]
         else:
-            raise Exception("No valid key found in .env")
+            raise KeyError(f"No valid key found for {service} in .env or environment")

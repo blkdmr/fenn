@@ -11,9 +11,12 @@ from smle.secrets.keystore import KeyStore
 
 class Logger:
 
-    def __init__(self, args):
+    def __init__(self, args, keystore: KeyStore | None = None):
 
-        self._keystore = KeyStore()
+        if keystore:
+            self._keystore = keystore
+        else:
+            self._keystore = KeyStore()
 
         self._args = args
 
@@ -77,10 +80,11 @@ class Logger:
         try:
             wandb_key = self._keystore.get_key("WANDB_API_KEY")
         except Exception:
-            self.system_log(f"{Fore.RED}[SMLE] No valid key provided in .env for wand service{Style.RESET_ALL}")
+            self.system_log(f"{Fore.RED}[SMLE] No valid WANDB API key provided in .env{Style.RESET_ALL}")
             sys.exit(1)
 
-        os.environ["WANDB_API_KEY"] = wandb_key
+        if not os.environ.get("WANDB_API_KEY"):
+            os.environ["WANDB_API_KEY"] = wandb_key
 
         try:
             self._wandb_run = wandb.init(
@@ -94,6 +98,6 @@ class Logger:
 
         except:
             print(f"{Fore.RED}[SMLE] Failed to start wandb session.{Style.RESET_ALL}")
-            print(f"{Fore.RED}[SMLE] Please check your wandb configuration in your yaml file.{Style.RESET_ALL}")
+            print(f"{Fore.RED}[SMLE] Please check your wandb configuration in your yaml file and .env file.{Style.RESET_ALL}")
             print(f"{Fore.RED}[SMLE] Please ensure your internet connection is up-and-running.{Style.RESET_ALL}")
             sys.exit(1)
